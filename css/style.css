@@ -1,0 +1,715 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+body.fix {
+    overflow: hidden;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 56px;
+    letter-spacing: 0px;
+    margin-bottom: 16px;
+}
+
+h3 {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+}
+
+h4 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+}
+
+section {
+    padding: 80px 0;
+    width: 100%;
+    position: relative;
+    scroll-margin-top: 80px;
+}
+
+.wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 80px;
+    height: 100%;
+}
+
+.overley-menu,
+.overley-zajavka {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.5);
+    z-index: 99;
+    display: none;
+}
+
+.overley-zajavka {
+    z-index: 199;
+}
+
+.overley-menu.visible,
+.overley-zajavka.visible {
+    display: block;
+}
+
+/* Header ---------------------------------------*/
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 120px;
+    z-index: 100;
+    background: rgba(50, 50, 50, 0);
+    transition: .3s;
+}
+
+header.move-down {
+    background: rgba(50, 50, 50, 1);
+    height: 80px;
+}
+
+header > .wrapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.logo {
+    min-width: 256px;
+    height: 72px;
+    background-image: url(../icons/Logo.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
+    z-index: 10;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.logo.move-down {
+    min-width: 168px;
+    height: 48px;
+}
+
+.logo:hover {
+    opacity: .8;
+}
+
+nav {
+    flex-grow: 1;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+nav > ul {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+}
+
+nav > ul > li > a {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #fff;
+    padding: 4px 8px;
+    white-space: pre;
+    transition: opacity .3s;
+}
+
+nav > ul > li > a.active {
+    font-weight: 700;
+    color: #fd0800;;
+}
+
+nav > ul > li > a:hover {
+    opacity: .5;
+}
+
+.btn-zajavka {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    background-color: #fd0800;
+    padding: 4px 16px;
+    border-radius: 20px;
+    z-index: 10;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-zajavka:hover {
+    background-color: rgba(253, 8, 0, .7);
+}
+
+.btn-zajavka > div:first-child {
+    width: 32px;
+    height: 32px;
+    background-image: url(../icons/edit-2.svg);
+}
+
+.btn-zajavka > div + div {
+    color: #fff;
+    margin-left: 4px;
+    white-space: pre;
+}
+
+/* Бургер */
+
+.icon-menu {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.icon-menu.burger {
+    display: none;
+}
+
+.icon-menu:hover {
+    opacity: .6;
+}
+
+.icon-menu > div,
+.icon-menu > div::before,
+.icon-menu > div::after {
+    width: 24px;
+    height: 2px;
+    background: #fd0800;
+    transition: .3s;
+}
+
+.icon-menu > div::before,
+.icon-menu > div::after {
+    content: '';
+    position: absolute;
+}
+
+.icon-menu > div::before {
+    transform: translateY(-8px);
+}
+.icon-menu > div::after {
+    transform: translateY(8px);
+}
+
+.icon-menu.close > div {
+    transform: translateX(-50%);
+    background: transparent;
+}
+.icon-menu.close > div::before {
+    transform: translateX(50%) rotate(45deg);
+}
+.icon-menu.close > div::after {
+    transform: translateX(50%) rotate(-45deg);
+}
+
+
+/* Заявка */
+
+.zajavka {
+    flex-direction: column;
+    justify-content: center;
+    width: 620px;
+    background: #fff;
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 56px 112px 56px 128px;
+    z-index: 200;
+    display: none;
+}
+
+.zajavka.open {
+    display: flex;
+}
+
+.zajavka > .icon-menu {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+
+}
+
+.zajavka > div > h3 {
+    position: relative;
+    margin-bottom: 8px;
+}
+
+.zajavka > div > h3:before {
+    content: '';
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    left: -80px;
+    background-image: url(../icons/edit-2_red.svg);
+    background-size: contain;
+}
+
+.zajavka > div > h4 {
+    margin-bottom: 32px;
+}
+
+.zajavka > .input-block {
+    position: relative;
+}
+
+.zajavka > .input-block:before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 24px;
+    height: 24px;
+}
+
+.zajavka > .icon-name.input-block:before {
+    background-image: url(../icons/user.svg);
+}
+
+.zajavka > .icon-mail.input-block:before {
+    background-image: url(../icons/mail.svg);
+}
+
+.zajavka > .icon-text.input-block:before {
+    background-image: url(../icons/message-square.svg);
+}
+
+.zajavka input,
+.zajavka textarea {
+    display: block;
+    margin-bottom: 24px;
+    background: transparent;
+    border: 1px solid #B4B4B4;
+    border-radius: 4px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 12px 16px 12px 48px;
+    outline: none;
+}
+
+.zajavka input {
+    height: 48px;
+}
+
+.zajavka input:focus,
+.zajavka textarea:focus {
+    border: 1px solid #000;
+}
+
+.zajavka textarea {
+    display: block;
+    height: 100px;
+    background: transparent;
+}
+
+.zajavka > .input-block > label {
+    position: absolute;
+    top: 12px;
+    
+    left: calc(3rem + 1px);
+    color: #b4b4b4;
+    z-index: -1;
+    transition: .3s;
+}
+
+.zajavka input:not(:placeholder-shown) + label,
+.zajavka textarea:not(:placeholder-shown) + label,
+.zajavka input:focus + label,
+.zajavka textarea:focus + label {
+    font-size: 8px;
+    color: transparent;
+}
+
+
+
+
+
+
+
+.btn {
+    display: inline-block;
+    width: fit-content;
+    height: 48px;
+    padding: 0 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    line-height: 48px;
+    color: #fff;
+    background: #fd0800;
+    border: 0;
+    border-radius: 4px;
+  }
+
+/* 1 секция ---------------------------------------*/
+
+section.first-screen {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+section.first-screen .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, .3)20%), url(../img/mainScreen1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%);
+}
+
+section.first-screen h2 {
+    color: #fff;
+    text-align: center;
+}
+
+section.first-screen > .wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+
+/* Секция Текст ---------------------------------------*/
+
+section#second {
+    background: white;
+
+}
+
+/* Контакты ---------------------------------------*/
+
+section#contacts {
+    padding: 0;
+    display: flex;
+}
+
+section#contacts .map {
+    min-height: 300px;
+    flex-grow: 1;
+    position: relative;
+    background-image: url(/img/map.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+section#contacts .map > div {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 50px;
+    height: 70px;
+    background-image: url(/icons/map-pin_A.svg);
+}
+
+section#contacts > ul {
+    width: 40%;
+    min-height: 300px;
+    padding: 60px 30px;
+    padding-right: calc((100vw - 1200px) / 2 + 80px);
+
+    background: #f0f0f0;
+    list-style: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+section#contacts > ul div {
+    font-weight: 700;
+}
+
+section#contacts > ul li:not(:first-child) > div {
+    font-size: 14px;
+}
+
+section#contacts a {
+    text-decoration: none;
+    color: #323232;
+    border-bottom: 1px dashed #000;
+    transition: .3s;
+}
+
+section#contacts a:hover {
+    opacity: .7;
+    border-bottom: 1px dashed rgb(50, 50, 50, .7);
+}
+
+/* Footer ---------------------------------------*/
+
+footer {
+    height: 72px;
+    background: #323232;
+}
+
+footer .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer > div > span {
+    font-weight: 700;
+    color: #fff;
+}
+
+
+
+
+/* Media -----------------------------------*/
+
+@media (max-width: 1800px) {
+
+}
+
+/* 1200 ---------------------------*/
+
+@media (max-width: 1200px) {
+
+    nav > ul {
+        position: fixed;
+        flex-direction: column;
+        justify-content: flex-start;
+        z-index: 0;
+        top: 0;
+        left: -50vw;
+        transition: .3s ease-in-out;
+    
+        background: linear-gradient(to bottom, rgba(0, 0, 0, .7), rgba(0, 0, 0, .3)10%, rgba(0, 0, 0, 0)20%) #595959;
+        width: 50vw;
+        height: 100vh;
+        padding-top: 170px;
+    }
+
+    nav > ul.move-down {
+        height: calc(100vh - 80px);
+        background: #595959;
+        top: 80px;
+        padding-top: 90px;
+    }
+
+    nav > ul.open {
+        left: 0;
+    }
+
+    nav > ul > li > a {
+        padding: 12px 0;
+        padding-left: 116px;
+        padding-right: 40px;
+        position: relative;
+        white-space: normal;
+    }
+
+    nav > ul > li > a:before {
+        content: '';
+        position: absolute;
+        top: 8;
+        left: 80px;
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+    }
+
+    nav > ul > li:nth-child(1) > a:before {
+        background-image: url(../icons/tool.svg);
+    }
+
+    nav > ul > li:nth-child(2) > a:before {
+        background-image: url(../icons/BagSimple.svg);
+    }
+
+    nav > ul > li:nth-child(3) > a:before {
+        background-image: url(../icons/users.svg);
+    }
+
+    nav > ul > li:nth-child(4) > a:before {
+        background-image: url(../icons/map-pin.svg);
+    }
+
+    nav > ul > li > a:hover {
+        opacity: 1;
+        background: #323232;
+    }
+
+    .icon-menu.burger {
+        display: flex;
+    }
+
+    section#contacts > ul {
+        padding-right: 80px;
+    }
+}
+
+/* 960 ---------------------------*/
+
+@media (max-width: 960px) {
+
+    header {
+        height: 80px;
+    }
+
+    .logo {
+        min-width: 168px;
+        height: 48px;
+    }
+
+    .wrapper {
+        padding: 0 40px;
+    }
+
+    nav > ul {
+        padding-top: 100px;
+    }
+
+    nav > ul > li > a {
+        padding-left: 76px;
+        padding-right: 76px;
+    }
+
+    nav > ul > li > a:before {
+        left: 40px;
+    }
+
+    section#contacts > ul {
+        padding-right: 40px;
+    }
+}
+
+/* 720 ---------------------------*/
+
+@media (max-width: 720px) {
+
+    h2 {
+        font-size: 24px;
+        line-height: 32px;
+    }
+
+    nav > ul {
+        left: -100vw;
+        width: 100vw;
+    }
+
+    .btn-zajavka {
+        background: transparent;
+        padding: 4px 4px;
+        border-radius: 0;
+    }
+
+    .btn-zajavka:hover {
+        opacity: .8;
+        background: transparent;
+    }
+
+    .btn-zajavka > div + div {
+        display: none;
+    }
+
+    .btn-zajavka > div:first-child {
+        background-image: url(../icons/edit-2_red.svg);
+    }
+
+    section#contacts {
+        flex-direction: column;
+    }
+    section#contacts > ul {
+        width: 100%;
+    }
+
+    .zajavka {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* 480 ---------------------------*/
+
+@media (max-width: 480px) {
+
+    .wrapper {
+        padding: 0 16px;
+    }
+
+    header > .wrapper {
+        gap: 8px;
+    }
+
+    header,
+    header.move-down {
+        height: 48px;
+    }
+
+    .logo,
+    .logo.move-down {
+        min-width: 100px;
+        height: 40px;
+    }
+
+    nav > ul.move-down {
+        height: calc(100vh - 48px);
+        top: 48px;
+    }
+
+    p,
+    nav > ul > li > a {
+        font-size: 14px;
+    }
+
+    nav > ul > li > a {
+        padding: 8px 0;
+        padding-left: 56px;
+        padding-right: 20px;
+    }
+
+    nav > ul > li > a:before {
+        top: 10px;
+        left: 20px;
+        width: 20px;
+        height: 20px;
+    }
+
+    section#contacts > ul {
+        padding-right: 16px;
+    }
+}
